@@ -118,7 +118,7 @@ class CountrySide
         {
             // Create an instance of StreamReader to read from a file.
             // The using statement also closes the StreamReader.
-            using (StreamReader sr = new StreamReader("F:\area51\annoucement.txt"))
+            using (StreamReader sr = new StreamReader("F:/Visual Studio/C0725030_Assignment1/annoucement.txt"))
             {
                 string line;
 
