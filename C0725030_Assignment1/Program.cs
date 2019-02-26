@@ -10,6 +10,7 @@ class JournalEntry
         villageName = note; distanceTraveled = dist;
         // TO DO : What additional code must you add to enable the Calculate Distance algorithm to 
         // produce an accurate result?
+        HowFarToGetBack = distanceTraveled;
     }
     public int HowFarToGetBack = 0;
     private string villageName;
@@ -24,6 +25,7 @@ class Hugi
     public static bool FoundAstrilde = false;
   
    // TO DO
+   public static List<JournalEntry> HugiJournal = new List<JournalEntry>();
 
     public static int CalculateDistanceWalked()
     {
@@ -40,6 +42,10 @@ class Hugi
 
 class CountrySide
 {
+    static void Main()
+    {
+        new CountrySide().Run();
+    }
     
     // Create the LinkedList to reflect the Map in the PowerPoint Instructions
     Village Maeland;
@@ -52,13 +58,18 @@ class CountrySide
 
     public void TraverseVillages(Village CurrentVillage)
     {
-        if (Hugi.FoundAstrilde) return;
+        try{
 
-        // Here Hugi records his travels, as any Norse Hero will do:
-        // TO DO : How does Hugi journal his visit to each village?
+            if (Hugi.FoundAstrilde) return;
+
+            // Here Hugi records his travels, as any Norse Hero will do:
+            // TO DO : How does Hugi journal his visit to each village?
+            Hugi.HugiJournal.Add(new JournalEntry(CurrentVillage.VillageName, CurrentVillage.distanceFromPreviousVillage));
         
             Console.WriteLine("I am in {0}", CurrentVillage.VillageName);
 
+
+            
             if (CurrentVillage.isAstrildgeHere)
             {
                 Console.WriteLine("I found Dear Astrildge in {0}", CurrentVillage.VillageName);
@@ -68,9 +79,14 @@ class CountrySide
             }
             
             // TO DO: Complete this section to make the Recursion work           
-        
+            TraverseVillages(CurrentVillage.west);
+            TraverseVillages(CurrentVillage.east);
 
             }
+            catch (NullReferenceException)
+            {
+            }
+        }
 
     public void Run()
     {
@@ -92,6 +108,7 @@ class CountrySide
         Badden.VillageSetup(11, null, null);
         // TO DO: Complete this section
 
+        this.TraverseVillages(Alst);
 
     }
 
@@ -101,7 +118,7 @@ class CountrySide
         {
             // Create an instance of StreamReader to read from a file.
             // The using statement also closes the StreamReader.
-            using (StreamReader sr = new StreamReader("c:/area51/annoucement.txt"))
+            using (StreamReader sr = new StreamReader("F:\area51\annoucement.txt"))
             {
                 string line;
 
